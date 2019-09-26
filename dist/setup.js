@@ -19,6 +19,7 @@ var omnibox = {
 
 // https://developer.chrome.com/extensions/tabs
 var tabs = {
+  executeScript: jest.fn(),
   get: jest.fn(function () {
     var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
     return cb({});
@@ -93,6 +94,11 @@ var tabs = {
     }));
   }),
   onUpdated: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    hasListener: jest.fn()
+  },
+  onRemoved: {
     addListener: jest.fn(),
     removeListener: jest.fn(),
     hasListener: jest.fn()
@@ -452,6 +458,59 @@ var i18n = {
   detectLanguage: jest.fn()
 };
 
+// https://developer.chrome.com/extensions/permissions
+var permissions = {
+  getAll: jest.fn(function (cb) {
+    return cb({});
+  }),
+  contains: jest.fn(function (info, cb) {
+    return cb(true);
+  }),
+  remove: jest.fn(function (info, cb) {
+    return cb(true);
+  }),
+  request: jest.fn(function (info, cb) {
+    return cb(true);
+  })
+};
+
+var topSites = {
+  get: jest.fn(function (cb) {
+    return cb([]);
+  })
+};
+
+// https://developer.chrome.com/extensions/alarms
+var alarms = {
+  create: jest.fn(),
+  get: jest.fn(function (alarm, cb) {
+    return cb(null);
+  }),
+  getAll: jest.fn(function (cb) {
+    return cb([]);
+  }),
+  clear: jest.fn(function (alarm, cb) {
+    return cb(true);
+  }),
+  clearAll: jest.fn(function (cb) {
+    return cb(true);
+  }),
+  onAlarm: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    hasListener: jest.fn()
+  }
+};
+
+// https://developer.chrome.com/extensions/webNavigation
+var webNavigation = {
+  onCommitted: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    hasListener: jest.fn()
+  }
+};
+
 var geckoProfiler = {
   stop: jest.fn(function () {
     return Promise.resolve();
@@ -488,7 +547,11 @@ var chrome = {
   commands: commands,
   geckoProfiler: geckoProfiler,
   notifications: notifications,
-  i18n: i18n
+  i18n: i18n,
+  permissions: permissions,
+  topSites: topSites,
+  alarms: alarms,
+  webNavigation: webNavigation
 };
  // Firefox uses 'browser' but aliases it to chrome
 

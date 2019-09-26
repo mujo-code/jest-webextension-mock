@@ -1,6 +1,7 @@
 // https://developer.chrome.com/extensions/tabs
 
 export const tabs = {
+  executeScript: jest.fn(),
   get: jest.fn((id = '', cb = () => {}) => cb({})),
   getCurrent: jest.fn(cb => cb({})),
   connect: jest.fn((id = '', info = {}) => {
@@ -40,6 +41,11 @@ export const tabs = {
     cb(ids.map(id => Object.assign({}, props, { id })))
   ),
   onUpdated: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    hasListener: jest.fn(),
+  },
+  onRemoved: {
     addListener: jest.fn(),
     removeListener: jest.fn(),
     hasListener: jest.fn(),
