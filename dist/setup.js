@@ -103,7 +103,12 @@ var tabs = {
     removeListener: jest.fn(),
     hasListener: jest.fn()
   },
-  sendMessage: jest.fn()
+  sendMessage: jest.fn(),
+  onCreated: {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    hasListener: jest.fn()
+  }
 };
 
 var onMessageListeners = [];
